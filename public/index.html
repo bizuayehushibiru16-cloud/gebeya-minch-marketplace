@@ -1,1 +1,517 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Gebya Minch Marketplace | ገበያ ሚንጭ ገበያ</title>
+
+  <meta name="description"
+        content="Gebya Minch Marketplace - Buy and sell locally across Southern Ethiopia.">
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fa;
+      color: #172033;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+    }
+
+    /* ================= HEADER ================= */
+
+    header {
+      background: #071f3d;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,.15);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 14px 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: #f5c542;
+    }
+
+    .logo small {
+      display: block;
+      color: white;
+      font-size: 11px;
+      font-weight: normal;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .nav-links a,
+    .nav-links button {
+      border: none;
+      background: transparent;
+      color: white;
+      padding: 9px 12px;
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover,
+    .nav-links button:hover {
+      background: rgba(255,255,255,.1);
+    }
+
+    .btn {
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+      padding: 11px 18px;
+      border-radius: 7px;
+      font-weight: 700;
+    }
+
+    .btn-gold {
+      background: #f5c542;
+      color: #071f3d;
+    }
+
+    .btn-blue {
+      background: #0b4f8a;
+      color: white;
+    }
+
+    .btn-outline {
+      border: 1px solid #ddd;
+      background: white;
+      color: #172033;
+    }
+
+    /* ================= HERO ================= */
+
+    .hero {
+      background:
+        linear-gradient(
+          rgba(7,31,61,.92),
+          rgba(7,31,61,.92)
+        );
+
+      color: white;
+      padding: 70px 20px;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 58px);
+      margin-bottom: 12px;
+    }
+
+    .hero h1 span {
+      color: #f5c542;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 28px;
+      color: #dce6f2;
+    }
+
+    .search-box {
+      max-width: 850px;
+      margin: auto;
+
+      display: flex;
+      background: white;
+      padding: 7px;
+      border-radius: 10px;
+      gap: 7px;
+    }
+
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 14px;
+      font-size: 16px;
+      min-width: 0;
+    }
+
+    .search-box select {
+      border: none;
+      border-left: 1px solid #ddd;
+      padding: 10px;
+      outline: none;
+      background: white;
+    }
+
+    /* ================= MAIN ================= */
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 45px 20px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .section-title h2 {
+      font-size: 26px;
+    }
+
+    .section-title span {
+      color: #777;
+      font-size: 14px;
+    }
+
+    /* ================= CATEGORIES ================= */
+
+    .categories {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(170px, 1fr));
+      gap: 15px;
+    }
+
+    .category {
+      background: white;
+      border-radius: 12px;
+      padding: 25px 15px;
+      text-align: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,.06);
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .category:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 7px 20px rgba(0,0,0,.1);
+    }
+
+    .category-icon {
+      font-size: 38px;
+      margin-bottom: 8px;
+    }
+
+    .category h3 {
+      font-size: 16px;
+    }
+
+    .category p {
+      font-size: 12px;
+      color: #777;
+    }
+
+    /* ================= PRODUCTS ================= */
+
+    .products {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fill, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 12px rgba(0,0,0,.07);
+      transition: .2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .product-image {
+      height: 190px;
+      background: #e8edf3;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 60px;
+    }
+
+    .product-body {
+      padding: 16px;
+    }
+
+    .product-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .price {
+      color: #0b4f8a;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .location {
+      color: #777;
+      font-size: 13px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-size: 11px;
+      background: #eef3f8;
+      margin-top: 8px;
+    }
+
+    .featured {
+      background: #fff4c7;
+      color: #735600;
+    }
+
+    /* ================= ANNOUNCEMENTS ================= */
+
+    .announcement {
+      background: white;
+      border-left: 5px solid #f5c542;
+      padding: 18px;
+      margin-bottom: 12px;
+      border-radius: 7px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+
+    .announcement h3 {
+      margin-bottom: 5px;
+    }
+
+    .announcement p {
+      color: #666;
+    }
+
+    /* ================= CTA ================= */
+
+    .cta {
+      background: #071f3d;
+      color: white;
+      text-align: center;
+      border-radius: 15px;
+      padding: 50px 20px;
+      margin-top: 20px;
+    }
+
+    .cta h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .cta p {
+      color: #dce6f2;
+      margin-bottom: 22px;
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer {
+      background: #06182d;
+      color: white;
+      margin-top: 50px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: auto;
+      padding: 45px 20px;
+
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    footer h3 {
+      color: #f5c542;
+      margin-bottom: 12px;
+    }
+
+    footer p,
+    footer li {
+      color: #c9d4df;
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+
+    footer ul {
+      list-style: none;
+    }
+
+    .copyright {
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding: 18px;
+      color: #9eabb9;
+      font-size: 13px;
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 700px) {
+
+      .nav {
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .search-box {
+        flex-direction: column;
+      }
+
+      .search-box select {
+        border-left: none;
+        border-top: 1px solid #ddd;
+      }
+
+      .hero {
+        padding: 50px 15px;
+      }
+
+      .container {
+        padding: 35px 15px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+  <div class="nav">
+
+    <a href="index.html" class="logo">
+      ገበያ ሚንጭ
+      <small>Gebya Minch Marketplace</small>
+    </a>
+
+    <nav class="nav-links">
+
+      <a href="index.html">🏠 Home</a>
+
+      <a href="businesses.html">
+        🏪 Businesses
+      </a>
+
+      <a href="dashboard.html">
+        📊 Dashboard
+      </a>
+
+      <a href="login.html">
+        👤 Login
+      </a>
+
+      <a
+        href="register.html"
+        class="btn btn-gold">
+        Register
+      </a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <h1>
+      Buy & Sell
+      <span>Anything Locally</span>
+      in Ethiopia
+    </h1>
+
+    <p>
+      የደቡብ ኢትዮጵያ ገበያ
+      <br>
+      Connecting buyers and sellers across
+      Hawassa, Arba Minch & Southern Ethiopia
+    </p>
+
+    <div class="search-box">
+
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="What are you looking for? / ምን ይፈልጋሉ?"
+      >
+
+      <select id="cityFilter">
+
+        <option value="">
+          All Cities
+        </option>
+
+        <option value="Hawassa">
+          Hawassa
+        </option>
+
+        <option value="Arba Minch">
+          Arba Minch
+        </option>
+
+        <option value="Wolaita Sodo">
+          Wol
