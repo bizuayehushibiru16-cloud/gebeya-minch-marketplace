@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Admin Dashboard | Gebya Minch</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f9;
+      color: #172033;
+    }
+
+    header {
+      background: #0b1f3a;
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #f2b84b;
+    }
+
+    header a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      color: #667085;
+      margin-bottom: 25px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+
+    .stat {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 3px 10px rgba(0,0,0,.05);
+    }
+
+    .stat h3 {
+      color: #667085;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .stat strong {
+      font-size: 28px;
+      color: #0b1f3a;
+    }
+
+    .section {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .section h2 {
+      margin-bottom: 18px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+
+    th {
+      background: #f8fafc;
+    }
+
+    button {
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 2px;
+    }
+
+    .approve {
+      background: #198754;
+      color: white;
+    }
+
+    .reject {
+      background: #dc3545;
+      color: white;
+    }
+
+    .feature {
+      background: #f2b84b;
+      color: #172033;
+    }
+
+    .refresh {
+      background: #0b1f3a;
+      color: white;
+      padding: 10px 18px;
+      margin-bottom: 15px;
+    }
+
+    .message {
+      padding: 12px;
+      background: #f8fafc;
+      border-radius: 8px;
+      color: #667085;
+    }
+
+    footer {
+      background: #0b1f3a;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      margin-top: 40px;
+    }
+
+    footer p {
+      color: #d8dee8;
+      margin-top: 7px;
+    }
+
+    @media(max-width: 600px) {
+      .container {
+        padding: 0 12px;
+      }
+
+      header {
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="logo">
+    Gebya <span>Minch</span> Admin
+  </div>
+
+  <a href="index.html">← Back to Marketplace</a>
+
+</header>
+
+<main class="container">
+
+  <h1>Admin Dashboard</h1>
+
+  <p class="subtitle">
+    Manage products, users and marketplace activity.
+  </p>
+
+  <!-- STATISTICS -->
+
+  <div class="stats">
+
+    <div class="stat">
+      <h3>Total Users</h3>
+      <strong id="usersCount">0</strong>
+    </div>
+
+    <div class="stat">
+      <h3>Total Products</h3>
+      <strong id="productsCount">0</strong>
+    </div>
+
+    <div class="stat">
+      <h3>Pending Products</h3>
+      <strong id="pendingCount">0</strong>
+    </div>
+
+    <div class="stat">
+      <h3>Monthly Revenue</h3>
+      <strong id="revenue">0 ETB</strong>
+    </div>
+
+  </div>
+
+
+  <!-- PENDING PRODUCTS -->
+
+  <section class="section">
+
+    <h2>Pending Products</h2>
+
+    <button
+      class="refresh"
+      onclick="loadPendingProducts()">
+      🔄 Refresh
+    </button>
+
+    <div
+      id="productsMessage"
+      class="message">
+      Loading products...
+    </div>
+
+    <div class="table-wrap">
+
+      <table id="productsTable" style="display:none;">
+
+        <thead>
+
+          <tr>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>City</th>
+            <th>Action</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="productsBody"></tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+
+  <!-- ANNOUNCEMENT -->
+
+  <section class="section">
+
+    <h2>Marketplace Announcement</h2>
+
+    <input
+      id="announcementTitle"
+      type="text"
+      placeholder="Announcement title"
+      style="
+        width:100%;
+        padding:12px;
+        margin-bottom:10px;
+        border:1px solid #ddd;
+        border-radius:7px;
+      "
+    >
+
+    <textarea
+      id="announcementBody"
+      placeholder="Announcement message"
+      rows="5"
+      style="
+        width:100%;
+        padding:12px;
+        margin-bottom:10px;
+        border:1px solid #ddd;
+        border-radius:7px;
+      "
+    ></textarea>
+
+    <button
+      class="approve"
+      onclick="createAnnouncement()">
+      Publish Announcement
+    </button>
+
+  </section>
+
+
+  <!-- SYSTEM STATUS -->
+
+  <section class="section">
+
+    <h2>System Status</h2>
+
+    <div class="message">
+      🟢 Marketplace system is ready.
+      <br><br>
+      Backend connection will be activated when the
+      Node.js server is deployed.
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+
+  <h3>
+    Gebya Minch Marketplace | ገበያ ሚንጭ ገበያ
+  </h3>
+
+  <p>
+    Southern Ethiopia Marketplace
+  </p>
+
+  <p>
+    © 2026 Gebya Minch Marketplace
+  </p>
+
+</footer>
+
+
+<script>
+
+/*
+  ADMIN FRONTEND
+
+  The real API will work after server.js
+  is deployed to a Node.js hosting service.
+*/
+
+
+const API_BASE = "";
+
+
+/* Get saved login token */
+
+function getToken() {
+
+  return localStorage.getItem("token");
+
+}
+
+
+/* API request */
+
+async function api(url, options = {}) {
+
+  const token = getToken();
+
+  const headers = {
+    ...(options.headers || {})
+  };
+
+  if (token) {
+
+    headers.Authorization =
+      "Bearer " + token;
+
+  }
+
+  const response = await fetch(
+    API_BASE + url,
+    {
+      ...options,
+      headers
+    }
+  );
+
+  const data =
+    await response.json()
+      .catch(() => ({}));
+
+  if (!response.ok) {
+
+    throw new Error(
+      data.message || "Request failed"
+    );
+
+  }
+
+  return data;
+
+}
+
+
+/* Load admin statistics */
+
+async function loadStats() {
+
+  try {
+
+    const data =
+      await api("/api/admin/stats");
+
+    document.getElementById("usersCount")
+      .textContent =
+      data.users ?? 0;
+
+    document.getElementById("productsCount")
+      .textContent =
+      data.products ?? 0;
+
+    document.getElementById("pendingCount")
+      .textContent =
+      data.pendingProducts ?? 0;
+
+    document.getElementById("revenue")
+      .textContent =
+      (data.monthlyRevenue || 0) + " ETB";
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+
+}
+
+
+/* Load pending products */
+
+async function loadPendingProducts() {
+
+  const message =
+    document.getElementById(
+      "productsMessage"
+    );
+
+  const table =
+    document.getElementById(
+      "productsTable"
+    );
+
+  const body =
+    document.getElementById(
+      "productsBody"
+    );
+
+  message.style.display = "block";
+
+  table.style.display = "none";
+
+  try {
+
+    const data =
+      await api(
+        "/api/admin/products?status=pending"
+      );
+
+    const products =
+      Array.isArray(data)
+        ? data
+        : (data.products || []);
+
+    body.innerHTML = "";
+
+    if (!products.length) {
+
+      message.textContent =
+        "No pending products.";
+
+      return;
+
+    }
+
+    products.forEach(product => {
+
+      const row =
+        document.createElement("tr");
+
+      row.innerHTML = `
+
+        <td>${product.id}</td>
+
+        <td>
+          ${escapeHTML(product.title)}
+        </td>
+
+        <td>
+          ${escapeHTML(product.category)}
+        </td>
+
+        <td>
+          ${formatMoney(product.price)}
+        </td>
+
+        <td>
+          ${escapeHTML(product.city)}
+        </td>
+
+        <td>
+
+          <button
+            class="approve"
+            onclick="changeStatus(
+              ${product.id},
+              'approved'
+            )">
