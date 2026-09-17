@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Businesses | Gebya Minch Marketplace</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f7fa;
+      color: #172033;
+    }
+
+    header {
+      background: #0b1f3a;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #f2b84b;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #f2b84b;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0b1f3a, #163b68);
+      color: white;
+      padding: 45px 20px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #e5eaf0;
+      margin-bottom: 25px;
+    }
+
+    .search-box {
+      max-width: 700px;
+      margin: auto;
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-box input,
+    .search-box select {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .search-box button {
+      background: #f2b84b;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      margin-bottom: 20px;
+    }
+
+    .section-title h2 {
+      font-size: 26px;
+      margin-bottom: 5px;
+    }
+
+    .section-title p {
+      color: #667085;
+    }
+
+    .business-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .business-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      border: 1px solid #e6eaf0;
+      transition: 0.2s;
+    }
+
+    .business-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .business-cover {
+      height: 120px;
+      background: linear-gradient(135deg, #0b1f3a, #244e80);
+      position: relative;
+    }
+
+    .business-logo {
+      position: absolute;
+      width: 75px;
+      height: 75px;
+      background: white;
+      border-radius: 50%;
+      left: 20px;
+      bottom: -35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      font-weight: bold;
+      color: #0b1f3a;
+      border: 4px solid white;
+    }
+
+    .business-content {
+      padding: 50px 20px 20px;
+    }
+
+    .business-name {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    .verified {
+      display: inline-block;
+      background: #e7f7ed;
+      color: #16803c;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .business-description {
+      color: #667085;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .info {
+      margin: 8px 0;
+      font-size: 14px;
+      color: #344054;
+    }
+
+    .info strong {
+      color: #0b1f3a;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 11px;
+      border-radius: 7px;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background: #0b1f3a;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #f2b84b;
+      color: #172033;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 50px;
+      background: white;
+      border-radius: 12px;
+      color: #667085;
+    }
+
+    footer {
+      background: #0b1f3a;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 50px;
+    }
+
+    footer p {
+      margin: 7px;
+      color: #d8dee8;
+    }
+
+    @media(max-width: 650px) {
+      .hero h1 {
+        font-size: 27px;
+      }
+
+      .search-box {
+        flex-direction: column;
+      }
+
+      nav {
+        width: 100%;
+      }
+
+      nav a {
+        margin-left: 0;
+        margin-right: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    Gebya <span>Minch</span> Marketplace
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="businesses.html">Businesses</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="login.html">Login</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Local Businesses</h1>
+  <p>Discover trusted businesses across Southern Ethiopia</p>
+
+  <div class="search-box">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search business..."
+    >
+
+    <select id="cityFilter">
+      <option value="">All Cities</option>
+      <option value="Hawassa">Hawassa</option>
+      <option value="Arba Minch">Arba Minch</option>
+      <option value="Wolaita Sodo">Wolaita Sodo</option>
+      <option value="Dilla">Dilla</option>
+      <option value="Addis Ababa">Addis Ababa</option>
+    </select>
+
+    <button onclick="searchBusinesses()">Search</button>
+  </div>
+</section>
+
+<main class="container">
+
+  <div class="section-title">
+    <h2>Businesses</h2>
+    <p>Find shops and service providers near you.</p>
+  </div>
+
+  <div id="businessGrid" class="business-grid"></div>
+
+</main>
+
+<footer>
+  <h3>Gebya Minch Marketplace | ገበያ ሚንጭ ገበያ</h3>
+  <p>Southern Ethiopia Marketplace</p>
+  <p>© 2026 Gebya Minch Marketplace. All rights reserved.</p>
+</footer>
+
+<script>
+
+const demoBusinesses = [
+  {
+    id: 1,
+    name: "Ethio Phone Store",
+    description: "Samsung, iPhone and other smartphone retailer.",
+    phone: "+251916001122",
+    telegram: "gebyaseller",
+    address: "Hawassa Piassa, next to Central Mall",
+    city: "Hawassa",
+    hours: "Mon-Sat 8:30 AM - 7:00 PM",
+    verified: true
+  },
+  {
+    id: 2,
+    name: "Southern Electronics",
+    description: "Electronics, laptops, accessories and technology products.",
+    phone: "+251911223344",
+    telegram: "southernelectronics",
+    address: "Arba Minch Main Market",
+    city: "Arba Minch",
+    hours: "Mon-Sat 9:00 AM - 6:30 PM",
+    verified: true
+  },
+  {
+    id: 3,
+    name: "Sodo Construction Services",
+    description: "Construction, architectural design and quantity surveying services.",
+    phone: "+251922334455",
+    telegram: "sodoconstruction",
+    address: "Wolaita Sodo",
+    city: "Wolaita Sodo",
+    hours: "Mon-Fri 8:30 AM - 5:30 PM",
+    verified: true
+  }
+];
+
+function displayBusinesses(list) {
+
+  const grid = document.getElementById("businessGrid");
+
+  if (!list.length) {
+    grid.innerHTML = `
+      <div class="empty">
+        <h3>No businesses found</h3>
+        <p>Try another search or city.</p>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = list.map(b => {
+
+    const initial = b.name.charAt(0).toUpperCase();
+
+    return `
+      <div class="business-card">
+
+        <div class="business-cover">
+          <div class="business-logo">
+            ${initial}
+          </div>
+        </div>
+
+        <div class="business-content">
+
+          <div class="business-name">
+            ${escapeHTML(b.name)}
+          </div>
+
+          ${
+            b.verified
+            ? `<span class="verified">✓ Verified Business</span>`
+            : ""
+          }
+
+          <div class="business-description">
+            ${escapeHTML(b.description || "")}
+          </div>
+
+          <div class="info">
+            📍 <strong>City:</strong>
+            ${escapeHTML(b.city || "")}
+          </div>
+
+          <div class="info">
+            🏠 <strong>Address:</strong>
+            ${escapeHTML(b.address || "")}
+          </div>
+
+          <div class="info">
+            📞 <strong>Phone:</strong>
+            ${escapeHTML(b.phone || "")}
+          </div>
+
+          <div class="info">
+            🕐 <strong>Hours:</strong>
+            ${escapeHTML(b.hours || "")}
+          </div>
+
+          <div class="buttons">
+
+            <a
+              class="btn btn-primary"
+              href="tel:${b.phone || ""}">
+              Call
+            </a>
+
+            ${
+              b.telegram
+              ? `
+                <a
+                  class="btn btn-secondary"
+                  target="_blank"
+                  href="https://t.me/${encodeURIComponent(b.telegram)}">
+                  Telegram
+                </a>
+              `
+              : ""
+            }
+
+          </div>
+
+        </div>
+      </div>
+    `;
+
+  }).join("");
+}
+
+function searchBusinesses() {
+
+  const search =
+    document.getElementById("searchInput")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const city =
+    document.getElementById("cityFilter").value;
+
+  const filtered = demoBusinesses.filter(b => {
+
+    const text =
+      `${b.name} ${b.description} ${b.city} ${b.address}`
+      .toLowerCase();
+
+    const matchesSearch =
+      !search || text.includes(search);
+
+    const matchesCity =
+      !city || b.city === city;
+
+    return matchesSearch && matchesCity;
+  });
+
+  displayBusinesses(filtered);
+}
+
+function escapeHTML(value) {
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+displayBusinesses(demoBusinesses);
+
+</script>
+
+</body>
+</html>
