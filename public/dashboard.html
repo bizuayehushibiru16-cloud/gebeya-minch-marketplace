@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dashboard | Gebya Minch Marketplace</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #17202a;
+    }
+
+    header {
+      background: #071a33;
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #f5b942;
+    }
+
+    .back {
+      color: white;
+      text-decoration: none;
+      background: #f5b942;
+      color: #071a33;
+      padding: 9px 14px;
+      border-radius: 7px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 25px auto;
+      padding: 0 15px;
+    }
+
+    .welcome {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    }
+
+    .welcome h1 {
+      color: #071a33;
+      margin-bottom: 8px;
+    }
+
+    .welcome p {
+      color: #667085;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      border: none;
+      background: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .tab.active {
+      background: #071a33;
+      color: white;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+    }
+
+    .card h3 {
+      color: #667085;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .number {
+      font-size: 28px;
+      font-weight: bold;
+      color: #071a33;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+    }
+
+    .panel h2 {
+      color: #071a33;
+      margin-bottom: 15px;
+    }
+
+    button.primary {
+      background: #f5b942;
+      border: none;
+      padding: 11px 18px;
+      border-radius: 7px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button.danger {
+      background: #d92d20;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .product {
+      border: 1px solid #e4e7ec;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .product h3 {
+      margin-bottom: 5px;
+    }
+
+    .product p {
+      color: #667085;
+      font-size: 14px;
+    }
+
+    .status {
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      background: #eef2f6;
+    }
+
+    .empty {
+      text-align: center;
+      color: #667085;
+      padding: 30px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #d0d5dd;
+      border-radius: 7px;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    .message {
+      padding: 12px;
+      background: #f8fafc;
+      border-left: 4px solid #f5b942;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    footer {
+      margin-top: 40px;
+      background: #071a33;
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+
+    @media(max-width:600px) {
+      header {
+        padding: 13px;
+      }
+
+      .logo {
+        font-size: 16px;
+      }
+
+      .product {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    Gebya Minch <span>ገበያ ሚንጭ</span>
+  </div>
+
+  <a href="index.html" class="back">Home</a>
+</header>
+
+<div class="container">
+
+  <div class="welcome">
+    <h1>My Dashboard</h1>
+    <p id="userInfo">Loading your account...</p>
+  </div>
+
+  <div class="tabs">
+
+    <button class="tab active" onclick="showTab('seller', this)">
+      Seller Dashboard
+    </button>
+
+    <button class="tab" onclick="showTab('buyer', this)">
+      Buyer Dashboard
+    </button>
+
+    <button class="tab" onclick="showTab('messages', this)">
+      Messages
+    </button>
+
+    <button class="tab" onclick="showTab('payments', this)">
+      Payment History
+    </button>
+
+    <button class="tab" onclick="logout()">
+      Logout
+    </button>
+
+  </div>
+
+
+  <!-- SELLER -->
+  <section id="seller" class="section active">
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>My Listings</h3>
+        <div class="number" id="listingCount">0</div>
+      </div>
+
+      <div class="card">
+        <h3>Approved</h3>
+        <div class="number" id="approvedCount">0</div>
+      </div>
+
+      <div class="card">
+        <h3>Pending</h3>
+        <div class="number" id="pendingCount">0</div>
+      </div>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>My Products</h2>
+
+      <button class="primary" onclick="showPostForm()">
+        + Post New Product
+      </button>
+
+      <div id="myProducts" style="margin-top:20px;">
+        <div class="empty">Loading...</div>
+      </div>
+
+    </div>
+
+
+    <div class="panel" id="postForm" style="display:none;">
+
+      <h2>Post New Product</h2>
+
+      <form id="productForm">
+
+        <div class="form-group">
+          <label>Product Title</label>
+          <input
+            type="text"
+            id="title"
+            placeholder="Example: iPhone 14 Pro Max"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label>Category</label>
+
+          <select id="category" required>
+            <option value="">Select category</option>
+            <option value="phones">Phones & Tablets</option>
+            <option value="vehicles">Vehicles</option>
+            <option value="electronics">Electronics</option>
+            <option value="clothing">Clothing</option>
+            <option value="real-estate">Real Estate</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Price (ETB)</label>
+          <input
+            type="number"
+            id="price"
+            placeholder="10000"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label>Condition</label>
+
+          <select id="condition" required>
+            <option value="New">New</option>
+            <option value="Used">Used</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>City</label>
+
+          <select id="city" required>
+            <option value="Hawassa">Hawassa</option>
+            <option value="Arba Minch">Arba Minch</option>
+            <option value="Wolaita Sodo">Wolaita Sodo</option>
+            <option value="Dilla">Dilla</option>
+            <option value="Addis Ababa">Addis Ababa</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+
+          <textarea
+            id="description"
+            placeholder="Describe your product..."
+            required
+          ></textarea>
+        </div>
+
+        <button class="primary" type="submit">
+          Publish Product
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- BUYER -->
+  <section id="buyer" class="section">
+
+    <div class="panel">
+
+      <h2>My Favorites</h2>
+
+      <div id="favorites">
+        <div class="empty">
+          Loading favorites...
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- MESSAGES -->
+  <section id="messages" class="section">
+
+    <div class="panel">
+
+      <h2>Messages</h2>
+
+      <div id="messagesList">
+        <div class="empty">
+          Loading messages...
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PAYMENTS -->
+  <section id="payments" class="section">
+
+    <div class="panel">
+
+      <h2>Payment History</h2>
+
+      <div id="paymentsList">
+        <div class="empty">
+          Loading payments...
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<footer>
+  <p>© 2026 Gebya Minch Marketplace | ገበያ ሚንጭ ገበያ</p>
+  <p style="margin-top:8px;">
+    Southern Ethiopia Marketplace
+  </p>
+</footer>
+
+
+<script>
+
+const API = "/api";
+
+function getToken() {
+  return localStorage.getItem("token");
+}
+
+
+async function api(url, options = {}) {
+
+  const token = getToken();
+
+  const headers = options.headers || {};
+
+  if (token) {
+    headers["Authorization"] = "Bearer " + token;
+  }
+
+  if (
+    options.body &&
+    !(options.body instanceof FormData)
+  ) {
+    headers["Content-Type"] = "application/json";
+  }
+
+  const response = await fetch(API + url, {
+    ...options,
+    headers
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.error || "Request failed");
+  }
+
+  return data;
+}
+
+
+function showTab(id, button) {
+
+  document.querySelectorAll(".section")
+    .forEach(section => {
+      section.classList.remove("active");
+    });
+
+  document.getElementById(id)
+    .classList.add("active");
+
+  document.querySelectorAll(".tab")
+    .forEach(tab => {
+      tab.classList.remove("active");
+    });
+
+  if (button) {
+    button.classList.add("active");
+  }
+
+  if (id === "buyer") {
+    loadFavorites();
+  }
+
+  if (id === "messages") {
+    loadMessages();
+  }
+
+  if (id === "payments") {
+    loadPayments();
+  }
+}
+
+
+async function loadUser() {
+
+  if (!getToken()) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  try {
+
+    const user = await api("/auth/me");
+
+    document.getElementById("userInfo").innerHTML =
+      "Welcome, <strong>" +
+      escapeHtml(user.name) +
+      "</strong> | " +
+      escapeHtml(user.email);
+
+  } catch (error) {
+
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+  }
+}
+
+
+async function loadProducts() {
+
+  try {
+
+    const products = await api("/my/products");
+
+    document.getElementById("listingCount").textContent =
+      products.length;
+
+    const approved =
+      products.filter(p => p.status === "approved").length;
+
+    const pending =
+      products.filter(p => p.status === "pending").length;
+
+    document.getElementById("approvedCount").textContent =
+      approved;
+
+    document.getElementById("pendingCount").textContent =
+      pending;
+
+
+    const container =
+      document.getElementById("myProducts");
+
+    if (!products.length) {
+
+      container.innerHTML =
+        '<div class="empty">You have no listings yet.</div>';
+
+      return;
+    }
+
+
+    container.innerHTML = products.map(p => `
+
+      <div class="product">
+
+        <div>
+
+          <h3>
+            ${escapeHtml(p.title)}
+          </h3>
+
+          <p>
+            ${Number(p.price).toLocaleString()} ETB
+            ·
+            ${escapeHtml(p.city)}
+          </p>
+
+        </div>
+
+        <div>
+
+          <span class="status">
+            ${escapeHtml(p.status)}
+          </span>
+
+          <button
+            class="danger"
+            onclick="deleteProduct(${p.id})"
+            style="margin-left:5px;"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+  } catch (error) {
+
+    document.getElementById("myProducts").innerHTML =
+      '<div class="empty">Unable to load products.</div>';
+  }
+}
+
+
+function showPostForm() {
+
+  const form =
+    document.getElementById("postForm");
+
+  form.style.display =
+    form.style.display === "none"
+      ? "block"
+      : "none";
+}
+
+
+document.getElementById("productForm")
+.addEventListener("submit", async function(e) {
+
+  e.preventDefault();
+
+  const product = {
+
+    title:
+      document.getElementById("title").value,
+
+    category:
+      document.getElementById("category").value,
+
+    price:
+      Number(document.getElementById("price").value),
+
+    condition:
+      document.getElementById("condition").value,
+
+    city:
+      document.getElementById("city").value,
+
+    description:
+      document.getElementById("description").value,
+
+    negotiable: true
+
+  };
+
+
+  try {
+
+    await api("/products", {
+
+      method: "POST",
+
+      body: JSON.stringify(product)
+
+    });
+
+    alert(
+      "Product submitted successfully. It is now waiting for admin approval."
+    );
+
+    this.reset();
+
+    document.getElementById("postForm")
+      .style.display = "none";
+
+    loadProducts();
+
+  } catch (error) {
+
+    alert(error.message);
+  }
+
+});
+
+
+async function deleteProduct(id) {
+
+  if (!confirm("Delete this product?")) {
+    return;
+  }
+
+  try {
+
+    await api("/products/" + id, {
+      method: "DELETE"
+    });
+
+    loadProducts();
+
+  } catch (error) {
+
+    alert(error.message);
+  }
+}
+
+
+async function loadFavorites() {
+
+  try {
+
+    const favorites =
+      await api("/favorites");
+
+    const container =
+      document.getElementById("favorites");
+
+    if (!favorites.length) {
+
+      container.innerHTML =
+        '<div class="empty">No favorite products yet.</div>';
+
+      return;
+    }
+
+    container.innerHTML =
+      favorites.map(p => `
+
+        <div class="product">
+
+          <div>
+            <h3>${escapeHtml(p.title)}</h3>
+
+            <p>
+              ${Number(p.price).toLocaleString()} ETB
+              · ${escapeHtml(p.city)}
+            </p>
+          </div>
+
+          <a
+            href="product.html?id=${p.id}"
+            class="back"
+          >
+            View
+          </a>
+
+        </div>
+
+      `).join("");
+
+  } catch (error) {
+
+    document.getElementById("favorites").innerHTML =
+      '<div class="empty">Please login to see favorites.</div>';
+  }
+}
+
+
+async function loadMessages() {
+
+  try {
+
+    const messages =
+      await api("/messages");
+
+    const container =
+      document.getElementById("messagesList");
+
+    if (!messages.length) {
+
+      container.innerHTML =
+        '<div class="empty">No messages yet.</div>';
+
+      return;
+    }
+
+    container.innerHTML =
+      messages.map(m => `
+
+        <div class="message">
+
+          <strong>
+            ${escapeHtml(m.sender_name || "User")}
+          </strong>
+
+          <p style="margin-top:5px;">
+            ${escapeHtml(m.body)}
+          </p>
+
+        </div>
+
+      `).join("");
+
+  } catch (error) {
+
+    document.getElementById("messagesList").innerHTML =
+      '<div class="empty">Unable to load messages.</div>';
+  }
+}
+
+
+async function loadPayments() {
+
+  try {
+
+    const payments =
+      await api("/payments/my");
+
+    const container =
+      document.getElementById("paymentsList");
+
+    if (!payments.length) {
+
+      container.innerHTML =
+        '<div class="empty">No payment history.</div>';
+
+      return;
+    }
+
+    container.innerHTML =
+      payments.map(p => `
+
+        <div class="product">
+
+          <div>
+
+            <h3>
+              ${escapeHtml(p.type || "Payment")}
+            </h3>
+
+            <p>
+              ${Number(p.amount || 0).toLocaleString()} ETB
+              · ${escapeHtml(p.provider || "")}
+            </p>
+
+          </div>
+
+          <span class="status">
+            ${escapeHtml(p.status)}
+          </span>
+
+        </div>
+
+      `).join("");
+
+  } catch (error) {
+
+    document.getElementById("paymentsList").innerHTML =
+      '<div class="empty">Unable to load payments.</div>';
+  }
+}
+
+
+function logout() {
+
+  localStorage.removeItem("token");
+
+  window.location.href = "index.html";
+}
+
+
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+loadUser();
+loadProducts();
+
+</script>
+
+</body>
+</html>
