@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Product | Gebya Minch Marketplace</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      color: #172033;
+    }
+
+    header {
+      background: #071f3d;
+      color: white;
+      padding: 15px 20px;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .logo {
+      color: white;
+      text-decoration: none;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #c99700;
+    }
+
+    .back {
+      color: white;
+      text-decoration: none;
+      padding: 8px 14px;
+      border: 1px solid rgba(255,255,255,.4);
+      border-radius: 7px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 25px rgba(0,0,0,.08);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .main-image {
+      width: 100%;
+      height: 430px;
+      object-fit: contain;
+      background: #f1f3f5;
+      border-radius: 12px;
+    }
+
+    .no-image {
+      width: 100%;
+      height: 430px;
+      background: #f1f3f5;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #888;
+      font-size: 60px;
+    }
+
+    .title {
+      font-size: 30px;
+      color: #071f3d;
+      margin-bottom: 15px;
+    }
+
+    .price {
+      color: #b07d00;
+      font-size: 28px;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+
+    .badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+    }
+
+    .badge {
+      background: #eef3f8;
+      color: #071f3d;
+      padding: 7px 11px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    .description {
+      margin-top: 20px;
+      line-height: 1.7;
+      color: #555;
+      white-space: pre-line;
+    }
+
+    .seller-box {
+      margin-top: 25px;
+      padding: 18px;
+      background: #f7f8fa;
+      border-radius: 10px;
+    }
+
+    .seller-box h3 {
+      color: #071f3d;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 13px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .favorite {
+      background: #f0f2f5;
+      color: #071f3d;
+    }
+
+    .message-btn {
+      background: #071f3d;
+      color: white;
+    }
+
+    .phone-btn {
+      background: #18864b;
+      color: white;
+    }
+
+    .telegram-btn {
+      background: #168acd;
+      color: white;
+    }
+
+    .report-btn {
+      background: #f5dddd;
+      color: #a00000;
+    }
+
+    .section {
+      margin-top: 30px;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.05);
+    }
+
+    .section h2 {
+      color: #071f3d;
+      margin-bottom: 15px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      resize: vertical;
+      font-family: Arial;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .review-btn {
+      background: #c99700;
+      color: white;
+      margin-top: 10px;
+    }
+
+    .review {
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .review strong {
+      color: #071f3d;
+    }
+
+    .stars {
+      color: #c99700;
+      margin: 5px 0;
+    }
+
+    .loading,
+    .error {
+      text-align: center;
+      padding: 60px 20px;
+      font-size: 18px;
+    }
+
+    .error {
+      color: #a00000;
+    }
+
+    .gallery {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      overflow-x: auto;
+    }
+
+    .gallery img {
+      width: 75px;
+      height: 75px;
+      object-fit: cover;
+      border-radius: 7px;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .gallery img:hover {
+      border-color: #c99700;
+    }
+
+    @media (max-width: 750px) {
+
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .main-image,
+      .no-image {
+        height: 300px;
+      }
+
+      .title {
+        font-size: 24px;
+      }
+
+      .price {
+        font-size: 23px;
+      }
+
+      .buttons {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="header-inner">
+
+    <a href="index.html" class="logo">
+      ገበያ <span>ሚንጭ</span>
+    </a>
+
+    <a href="index.html" class="back">
+      ← Marketplace
+    </a>
+
+  </div>
+
+</header>
+
+
+<div class="container">
+
+  <div id="loading" class="loading">
+    Loading product...
+  </div>
+
+
+  <div id="error" class="error" style="display:none;">
+    Product could not be found.
+  </div>
+
+
+  <div id="content" style="display:none;">
+
+    <div class="product-card">
+
+      <div class="product-grid">
+
+        <!-- PRODUCT IMAGE -->
+
+        <div>
+
+          <img
+            id="mainImage"
+            class="main-image"
+            style="display:none;"
+            alt="Product">
+
+          <div
+            id="noImage"
+            class="no-image">
+            📦
+          </div>
+
+          <div
+            id="gallery"
+            class="gallery">
+          </div>
+
+        </div>
+
+
+        <!-- PRODUCT INFORMATION -->
+
+        <div>
+
+          <h1
+            id="title"
+            class="title">
+          </h1>
+
+          <div
+            id="price"
+            class="price">
+          </div>
+
+
+          <div
+            id="badges"
+            class="badges">
+          </div>
+
+
+          <p
+            id="description"
+            class="description">
+          </p>
+
+
+          <!-- SELLER -->
+
+          <div class="seller-box">
+
+            <h3>
+              Seller Information
+            </h3>
+
+            <p>
+              👤 <strong id="sellerName">
+                Seller
+              </strong>
+            </p>
+
+            <p style="margin-top:8px;">
+              📍 <span id="sellerCity"></span>
+            </p>
+
+          </div>
+
+
+          <!-- BUTTONS -->
+
+          <div class="buttons">
+
+            <button
+              class="favorite"
+              onclick="favoriteProduct()">
+
+              ❤️ Favorite
+
+            </button>
+
+
+            <button
+              class="message-btn"
+              onclick="messageSeller()">
+
+              💬 Message Seller
+
+            </button>
+
+
+            <button
+              id="phoneButton"
+              class="phone-btn"
+              onclick="callSeller()">
+
+              📞 Call Seller
+
+            </button>
+
+
+            <button
+              id="telegramButton"
+              class="telegram-btn"
+              onclick="telegramSeller()">
+
+              ✈️ Telegram
+
+            </button>
+
+
+            <button
+              class="report-btn"
+              onclick="reportProduct()">
+
+              🚩 Report
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- REVIEWS -->
+
+    <div class="section">
+
+      <h2>
+        ⭐ Reviews
+      </h2>
+
+      <div id="reviews">
+        Loading reviews...
+      </div>
+
+    </div>
+
+
+    <!-- ADD REVIEW -->
+
+    <div class="section">
+
+      <h2>
+        Write a Review
+      </h2>
+
+      <input
+        type="number"
+        id="rating"
+        min="1"
+        max="5"
+        placeholder="Rating 1 - 5">
+
+      <textarea
+        id="comment"
+        placeholder="Write your review...">
+      </textarea>
+
+      <button
+        class="review-btn"
+        onclick="submitReview()">
+
+        Submit Review
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  /*
+   * GEBYA MINCH MARKETPLACE
+   * PRODUCT DETAILS
+   */
+
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+  const productId =
+    params.get("id");
+
+
+  let product = null;
+
+
+  const loading =
+    document.getElementById("loading");
+
+  const error =
+    document.getElementById("error");
+
+  const content =
+    document.getElementById("content");
+
+
+  /*
+   * LOAD PRODUCT
+   */
+
+  async function loadProduct() {
+
+    if (!productId) {
+
+      loading.style.display = "none";
+      error.style.display = "block";
+
+      return;
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/api/products/" + productId
+        );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          "Product not found"
+        );
+
+      }
+
+
+      product =
+        await response.json();
+
+
+      displayProduct();
+
+      loadReviews();
+
+
+    } catch (err) {
+
+      console.error(err);
+
+      loading.style.display = "none";
+      error.style.display = "block";
+
+    }
+
+  }
+
+
+  /*
+   * DISPLAY PRODUCT
+   */
+
+  function displayProduct() {
+
+    loading.style.display = "none";
+    content.style.display = "block";
+
+
+    document.getElementById("title")
+      .textContent =
+      product.title || "Product";
+
+
+    document.getElementById("price")
+      .textContent =
+      formatMoney(product.price);
+
+
+    document.getElementById("description")
+      .textContent =
+      product.description ||
+      "No description available.";
+
+
+    document.getElementById("sellerName")
+      .textContent =
+      product.seller_name ||
+      product.name ||
+      "Seller";
+
+
+    document.getElementById("sellerCity")
+      .textContent =
+      product.city ||
+      "";
+
+
+    /*
+     * BADGES
+     */
+
+    const badges =
+      document.getElementById("badges");
+
+    badges.innerHTML = "";
+
+
+    addBadge(
+      product.category
+    );
+
+    addBadge(
+      product.condition
+    );
+
+    addBadge(
+      product.city
+    );
+
+
+    if (product.negotiable) {
+
+      addBadge(
+        "Negotiable"
+      );
+
+    }
+
+
+    if (product.trusted) {
+
+      addBadge(
+        "✓ Trusted Seller"
+      );
+
+    }
+
+
+    /*
+     * IMAGE
+     */
+
+    const mainImage =
+      document.getElementById("mainImage");
+
+    const noImage =
+      document.getElementById("noImage");
+
+    const gallery =
+      document.getElementById("gallery");
+
+
+    gallery.innerHTML = "";
+
+
+    if (
+      product.images &&
+      product.images.length > 0
+    ) {
+
+      mainImage.src =
+        product.images[0].url ||
+        product.images[0];
+
+      mainImage.style.display =
+        "block";
+
+      noImage.style.display =
+        "none";
+
+
+      product.images.forEach(
+        function(image) {
+
+          const url =
+            image.url || image;
+
+
+          const img =
+            document.createElement("img");
+
+          img.src = url;
+
+          img.onclick =
+            function() {
+
+              mainImage.src = url;
+
+            };
+
+
+          gallery.appendChild(img);
+
+        }
+      );
+
+    } else {
+
+      mainImage.style.display =
+        "none";
+
+      noImage.style.display =
+        "flex";
+
+    }
+
+  }
+
+
+  function addBadge(text) {
+
+    if (!text) return;
+
+
+    const badges =
+      document.getElementById("badges");
+
+
+    const span =
+      document.createElement("span");
+
+    span.className =
+      "badge";
+
+    span.textContent =
+      text;
+
+    badges.appendChild(span);
+
+  }
+
+
+  /*
+   * MONEY
+   */
+
+  function formatMoney(value) {
+
+    if (
+      value === null ||
+      value === undefined
+    ) {
+
+      return "Price not available";
+
+    }
+
+
+    return Number(value)
+      .toLocaleString("en-US") +
+      " ETB";
+
+  }
+
+
+  /*
+   * GET TOKEN
+   */
+
+  function getToken() {
+
+    return localStorage.getItem(
+      "token"
+    );
+
+  }
+
+
+  /*
+   * FAVORITE
+   */
+
+  async function favoriteProduct() {
+
+    const token =
+      getToken();
+
+
+    if (!token) {
+
+      alert(
+        "Please login first."
+      );
+
+      window.location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/api/products/" +
+          productId +
+          "/favorite",
+          {
+            method: "POST",
+
+            headers: {
+              "Authorization":
+                "Bearer " + token
+            }
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          "Unable to favorite."
+        );
+
+      }
+
+
+      alert(
+        data.message ||
+        "Added to favorites."
+      );
+
+
+    } catch (err) {
+
+      alert(err.message);
+
+    }
+
+  }
+
+
+  /*
+   * MESSAGE SELLER
+   */
+
+  async function messageSeller() {
+
+    const token =
+      getToken();
+
+
+    if (!token) {
+
+      alert(
+        "Please login first."
+      );
+
+      window.location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    const body =
+      prompt(
+        "Write your message to the seller:"
+      );
+
+
+    if (!body) return;
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/api/messages",
+          {
+            method: "POST",
+
+            headers: {
+
+              "Content-Type":
+                "application/json",
+
+              "Authorization":
+                "Bearer " + token
+
+            },
+
+            body: JSON.stringify({
+
+              receiver_id:
+                product.user_id,
+
+              product_id:
+                product.id,
+
+              body:
+                body
+
+            })
+
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          "Message failed."
+        );
+
+      }
+
+
+      alert(
+        "Message sent successfully."
+      );
+
+
+    } catch (err) {
+
+      alert(err.message);
+
+    }
+
+  }
+
+
+  /*
+   * PHONE CALL
+   */
+
+  function callSeller() {
+
+    if (
+      !product.seller_phone
+    ) {
+
+      alert(
+        "Seller phone number is not available."
+      );
+
+      return;
+
+    }
+
+
+    window.location.href =
+      "tel:" +
+      product.seller_phone;
+
+  }
+
+
+  /*
+   * TELEGRAM
+   */
+
+  function telegramSeller() {
+
+    if (
+      !product.telegram
+    ) {
+
+      alert(
+        "Telegram contact is not available."
+      );
+
+      return;
+
+    }
+
+
+    let username =
+      product.telegram;
+
+
+    username =
+      username.replace(
+        /^@/,
+        ""
+      );
+
+
+    window.open(
+      "https://t.me/" +
+      username,
+      "_blank"
+    );
+
+  }
+
+
+  /*
+   * REPORT PRODUCT
+   */
+
+  async function reportProduct() {
+
+    const token =
+      getToken();
+
+
+    if (!token) {
+
+      alert(
+        "Please login first."
+      );
+
+      window.location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    const reason =
+      prompt(
+        "Why are you reporting this product?"
+      );
+
+
+    if (!reason) return;
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/api/products/" +
+          productId +
+          "/reports",
+          {
+            method: "POST",
+
+            headers: {
+
+              "Content-Type":
+                "application/json",
+
+              "Authorization":
+                "Bearer " + token
+
+            },
+
+            body: JSON.stringify({
+
+              reason:
+                reason
+
+            })
+
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          "Report failed."
+        );
+
+      }
+
+
+      alert(
+        "Report submitted successfully."
+      );
+
+
+    } catch (err) {
+
+      alert(err.message);
+
+    }
+
+  }
+
+
+  /*
+   * LOAD REVIEWS
+   */
+
+  async function loadReviews() {
+
+    const box =
+      document.getElementById(
+        "reviews"
+      );
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/api/products/" +
+          productId +
+          "/reviews"
+        );
+
+
+      const reviews =
+        await response.json();
+
+
+      if (
+        !Array.isArray(reviews) ||
+        reviews.length === 0
+      ) {
+
+        box.innerHTML =
+          "<p>No reviews yet.</p>";
+
+        return;
+
+      }
+
+
+      box.innerHTML = "";
+
+
+      reviews.forEach(
+        function(review) {
+
+          const div =
+            document.createElement(
+              "div"
+            );
+
+          div.className =
+            "review";
+
+
+          const stars =
+            "★".repeat(
+              Number(review.rating)
+            );
+
+
+          div.innerHTML = `
+
+            <strong>
+              ${escapeHTML(
+                review.user_name ||
+                "User"
+              )}
+            </strong>
+
+            <div class="stars">
+              ${stars}
+            </div>
+
+            <p>
+              ${escapeHTML(
+                review.comment || ""
+              )}
+            </p>
+
+          `;
+
+
+          box.appendChild(div);
+
+        }
+      );
+
+
+    } catch (err) {
+
+      box.innerHTML =
+        "<p>Unable to load reviews.</p>";
+
+    }
+
+  }
+
+
+  /*
+   * SUBMIT REVIEW
+   */
+
+  async function submitReview() {
+
+    const token =
+      getToken();
+
+
+    if (!token) {
+
+      alert(
+        "Please login first."
+      );
+
+      window.location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    const rating =
+      Number(
+        document.getElementById(
+          "rating"
+        ).value
+      );
+
+
+    const comment =
+      document.getElementById(
+        "comment"
+      ).value.trim();
+
+
+    if (
+      rating < 1 ||
+      rating > 5
+    ) {
+
+      alert(
+        "Please enter a rating between 1 and 5."
+      );
+
+      return;
+
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/api/products/" +
+          productId +
+          "/reviews",
+          {
+            method: "POST",
+
+            headers: {
+
+              "Content-Type":
+                "application/json",
+
+              "Authorization":
+                "Bearer " + token
+
+            },
+
+            body: JSON.stringify({
+
+              rating:
+                rating,
+
+              comment:
+                comment
+
+            })
+
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          "Unable to submit review."
+        );
+
+      }
+
+
+      alert(
+        "Review submitted successfully."
+      );
+
+
+      document.getElementById(
+        "rating"
+      ).value = "";
+
+
+      document.getElementById(
+        "comment"
+      ).value = "";
+
+
+      loadReviews();
+
+
+    } catch (err) {
+
+      alert(err.message);
+
+    }
+
+  }
+
+
+  /*
+   * SECURITY
+   */
+
+  function escapeHTML(text) {
+
+    const div =
+      document.createElement("div");
+
+    div.textContent =
+      text;
+
+    return div.innerHTML;
+
+  }
+
+
+  /*
+   * START
+   */
+
+  loadProduct();
+
+</script>
+
+</body>
+</html>
